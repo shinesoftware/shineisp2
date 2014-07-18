@@ -45,6 +45,7 @@ namespace ProductAdmin\Form;
 use Zend\InputFilter\Input;
 
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilter;
 use Zend\Stdlib\Hydrator\ClassMethods;
 use Base\Hydrator\Strategy\DateTimeStrategy;
 
@@ -103,10 +104,12 @@ class ProductForm extends Form
             $fieldInput->isRequired(true);
             $inputFilter->add($fieldInput);
         }
-        
-        $this->setInputFilter($inputFilter);
+
         $this->add($fieldset);
-        
+        $parentFilter = new InputFilter();
+        $parentFilter->add($inputFilter, 'attributes');
+        $this->setInputFilter($parentFilter);
+
         return $this;
     }
 }
