@@ -44,6 +44,7 @@
 namespace Product\Entity;
 
 use DateTime; 
+use Zend\Stdlib\ArrayObject as ArrayObject;
 
 class Product implements ProductInterface {
 
@@ -54,6 +55,16 @@ class Product implements ProductInterface {
     public $attributes;
     public $createdat;
     public $updatedat;
+
+    /**
+     * Returns all the properties of this entity
+     * 
+     * @return array
+     */
+    public function getArrayCopy()
+    {
+        return array_merge(get_object_vars($this), array('attributes' => $this->attributes->getArrayCopy()));
+    }
     
     /**
      * This method get the array posted and assign the values to the table
@@ -138,7 +149,7 @@ class Product implements ProductInterface {
 	/**
 	 * @param field_type $attributes
 	 */
-	public function setAttributes(array $attributes) {
+	public function setAttributes(ArrayObject $attributes) {
 		$this->attributes = $attributes;
 	}
 
