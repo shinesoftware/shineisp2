@@ -204,10 +204,10 @@ class IndexController extends AbstractActionController
     		$this->flashMessenger()->setNamespace('danger')->addMessage('The record has been not found!');
     		return $this->redirect()->toRoute('zfcadmin/product/default');
     	}
-    	
+                
     	// Bind the MAIN data in the form NOT the attributes
     	if (! empty($product)) {
-    	    $form->bind($product);
+    	    $form->setData($product->getArrayCopy());
     	}
     	
     	$viewModel = new ViewModel(array (
